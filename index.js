@@ -188,11 +188,9 @@ class Spinnies {
   }
 
   bindSigint(lines) {
-    process.removeAllListeners('SIGINT');
     process.on('SIGINT', () => {
       cliCursor.show();
       readline.moveCursor(process.stderr, 0, this.lineCount);
-      process.exit(0);
     });
   }
 }
