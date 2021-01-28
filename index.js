@@ -55,6 +55,7 @@ class Spinnies {
   }
 
   update(name, options = {}) {
+    if (!this.has(name)) this.add(name, options);
     const { status } = options;
     this.setSpinnerProperties(name, options, status);
     this.updateSpinnerState();
