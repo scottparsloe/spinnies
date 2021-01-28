@@ -26,7 +26,7 @@ class Spinnies {
     this.lineCount = 0;
     this.currentFrameIndex = 0;
     this.spin = !this.options.disableSpins && !process.env.CI && process.stderr && process.stderr.isTTY;
-    this.bindSigint();
+    this.onExit();
   }
 
   pick(name) {
@@ -187,8 +187,9 @@ class Spinnies {
     }
   }
 
-  bindSigint(lines) {
-    process.on('SIGINT', () => {
+  onExit() {
+    process.on('exit', () => {
+      this.stopAll('fail');
       cliCursor.show();
       readline.moveCursor(process.stderr, 0, this.lineCount);
     });
