@@ -33,6 +33,10 @@ class Spinnies {
     return this.spinners[name];
   }
 
+  has(name) {
+    return this.spinners.hasOwnProperty(name) && Object.keys(this.spinners[name]).length > 0;
+  }
+
   add(name, options = {}) {
     if (typeof name !== 'string') throw Error('A spinner reference name must be specified');
     if (!options.text) options.text = name;
