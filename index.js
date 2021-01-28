@@ -39,6 +39,7 @@ class Spinnies {
 
   add(name, options = {}) {
     if (typeof name !== 'string') throw Error('A spinner reference name must be specified');
+    if (this.has(name)) return;
     if (!options.text) options.text = name;
     const spinnerProperties = {
       ...colorOptions(this.options),
@@ -55,7 +56,7 @@ class Spinnies {
   }
 
   update(name, options = {}) {
-    if (!this.has(name)) this.add(name, options);
+    if (!this.has(name)) return;
     const { status } = options;
     this.setSpinnerProperties(name, options, status);
     this.updateSpinnerState();
@@ -64,6 +65,7 @@ class Spinnies {
   }
 
   succeed(name, options = {}) {
+    if (!this.has(name)) return;
     this.setSpinnerProperties(name, options, 'succeed');
     this.updateSpinnerState();
 
@@ -71,6 +73,7 @@ class Spinnies {
   }
 
   fail(name, options = {}) {
+    if (!this.has(name)) return;
     this.setSpinnerProperties(name, options, 'fail');
     this.updateSpinnerState();
 
@@ -79,6 +82,7 @@ class Spinnies {
 
   remove(name) {
     if (typeof name !== 'string') throw Error('A spinner reference name must be specified');
+    if (!this.has(name)) return;
     const spinner = this.spinners[name];
     delete this.spinners[name];
 
